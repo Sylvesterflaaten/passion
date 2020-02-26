@@ -5,14 +5,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BISTRO BABUSHKA</title>
+    <link href="https://fonts.googleapis.com/css?family=Krona+One|Open+Sans&display=swap" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
         }
 
-
-        .produktet h1 {
+        h1 {
+            font-family: 'Krona One';
+            border-top: 2px black solid;
+            border-bottom: 2px black solid;
             font-size: 2rem;
+        }
+
+        a {
+            font-family: 'Krona One';
+        }
+
+        p {
+            font-family: 'Open Sans';
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
         img {
@@ -37,19 +51,33 @@
             text-align: center;
         }
 
+        /*HEADER NAV MENU*/
         nav {
             display: flex;
             width: 100%;
             height: 100px;
             align-items: center;
             justify-content: center;
+            text-align: center;
             background: #000;
         }
 
+
         nav .left-right a {
-            text-decoration: none;
-            color: white;
             margin: 0 50px;
+
+            color: #848484;
+            font-size: 20px;
+            text-decoration: none;
+            text-align: center;
+            padding: 5px 0;
+            display: block;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .logo img:hover {
+            filter: invert(100%)
         }
 
         .logo img {
@@ -58,13 +86,49 @@
             filter: invert(90%)
         }
 
+        ul {
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /*HOVER EFFECT PÅ MENU*/
+        .left-right li:hover a::before {
+            right: 0;
+            left: 0;
+        }
+
+        .left-right a:hover {
+            color: #e74c3c;
+        }
+
+        .left-right a::before {
+            content: "";
+            transition: all 0.4s ease-in-out;
+            position: absolute;
+            right: 50%;
+            left: 50%;
+            bottom: 0;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+
+        .left-right a:hover::before {
+            right: 0;
+            left: 0;
+        }
+
         #detalje #luk {
-            position: fixed;
-            top: 11%;
+            position: absolute;
+            top: 20%;
             left: 0;
             font-size: 2rem;
             cursor: pointer;
             margin: 1rem;
+            font-family: 'Open Sans';
         }
 
         #detalje .produktet {
@@ -75,9 +139,7 @@
             text-align: left;
             width: 60vw;
             min-height: 50vh;
-            margin: 0 auto;
             padding: 1rem;
-            max-width: 1000px;
             margin: 5vh auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -90,11 +152,9 @@
         }
 
         button {
-            box-shadow: inset 0px 1px 0px 0px #ffffff;
-            background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            border: 1px solid #dcdcdc;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #959595;
             display: inline-block;
             cursor: pointer;
             color: #000000;
@@ -112,6 +172,12 @@
             transition: .1s;
         }
 
+        .lang {
+            width: 100%;
+            border-bottom: 3px solid black;
+            padding-bottom: 25px;
+        }
+
         @media screen and (max-width: 992px) {
             #detalje #luk {
                 font-size: 0.7rem;
@@ -124,8 +190,8 @@
     <header>
         <nav>
             <div class="left-right">
-                <a href="landingpage.html">HOME</a>
-                <a href="serier.html">TV-SHOWS</a>
+                <ul>
+                    <li><a href="serier.html">TV-SHOWS</a></li>
             </div>
             <div class="logo">
                 <a href="landingpage.html">
@@ -133,9 +199,9 @@
                 </a>
             </div>
             <div class="left-right">
-                <a href="">GENRES</a>
-                <a href="">NEW</a>
+                <li><a href="">NEW</a></li>
             </div>
+            </ul>
         </nav>
     </header>
     <section id="detalje" class="skjul">
@@ -144,9 +210,8 @@
             <button id="luk">BACK</button>
             <img src="" alt="">
             <div class="produkt-beskrivelse">
-                <p><b>Description:</b> </p>
                 <p class="lang"></p>
-                <p class="seasons"></p>
+                <p class="seasons"><b>Seasons: </b></p>
                 <p class="genre"></p>
             </div>
         </article>
@@ -183,7 +248,7 @@
                     detalje.querySelector("button").addEventListener("click", () => detalje.classList.add("skjul"));
                     console.log(produkt.gsx$navn.$t);
                     detalje.querySelector("h1").textContent = produkt.gsx$navn.$t;
-                    detalje.querySelector(".seasons").textContent = "Seasons: " + produkt.gsx$seasons.$t;
+                    detalje.querySelector(".seasons").textContent += produkt.gsx$seasons.$t;
                     detalje.querySelector(".genre").textContent = "Genre: " + produkt.gsx$genre.$t;
                     detalje.querySelector(".lang").textContent += produkt.gsx$lang.$t;
                     detalje.querySelector("img").src = `imgs/${produkt.gsx$billede.$t}.jpg`;

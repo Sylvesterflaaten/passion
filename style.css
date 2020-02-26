@@ -7,13 +7,17 @@
 
         body {
             margin: 0;
-            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-            color: #3b2919;
             line-height: 1.6;
         }
 
         #container {
             max-width: 1000px;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+            width: 60vw;
+            min-height: 50vh;
+            padding: 1rem;
             margin: 5vh auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -45,27 +49,53 @@
             height: 50vh;
         }
 
+        /*TEXT INDSTILLINGER*/
         .overskrift {
             text-align: center;
+            font-family: 'Krona One', ;
+        }
+
+        h1,
+        a {
+            font-family: 'Krona One';
+        }
+
+        h2 {
+            font-family: 'Krona One';
+            font-size: 1.25rem;
+        }
+
+        p {
+            font-family: 'Open Sans';
+            font-weight: bold;
         }
 
         /*GENERELT SLUT*/
 
 
-        /*HEADER*/
+        /*HEADER NAV MENU*/
         nav {
             display: flex;
             width: 100%;
             height: 100px;
             align-items: center;
             justify-content: center;
+            text-align: center;
             background: #000;
         }
 
+
         nav .left-right a {
-            text-decoration: none;
-            color: white;
             margin: 0 50px;
+
+            color: #848484;
+            font-size: 20px;
+            text-decoration: none;
+            text-align: center;
+            padding: 5px 0;
+            display: block;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
         .logo img {
@@ -74,7 +104,47 @@
             filter: invert(90%)
         }
 
-        /*HEADER SLUT*/
+        .logo img:hover {
+            filter: invert(100%)
+        }
+
+
+        nav ul {
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        nav li {
+            list-style: none;
+        }
+
+        /*HOVER EFFECT PÅ MENU*/
+        .left-right li:hover a::before {
+            right: 0;
+            left: 0;
+        }
+
+        .left-right a:hover {
+            color: #e74c3c;
+        }
+
+        .left-right a::before {
+            content: "";
+            transition: all 0.4s ease-in-out;
+            position: absolute;
+            right: 50%;
+            left: 50%;
+            bottom: 0;
+            height: 2px;
+            background-color: #e74c3c;
+        }
+
+        .left-right a:hover::before {
+            right: 0;
+            left: 0;
+        }
+
+        /*HEADER NAV MENU SLUT*/
 
         /*SPLASH INDSTILLINGER PÅ FORSIDEN*/
         #splash {
@@ -90,6 +160,7 @@
             padding: 0 20px;
         }
 
+
         #splash h1 {
             font-size: 50px;
             line-height: 1.2;
@@ -102,16 +173,21 @@
         #splash .button {
             font-size: 18px;
             text-decoration: none;
-            color: #3b2919;
-            border: #342517 1px solid;
+            color: #000000;
+            border: #000000 1px solid;
             padding: 10px 20px;
             border-radius: 10px;
             margin-top: 20px;
         }
 
+        .buttons {
+            margin: 20px;
+        }
+
         #splash .button:hover {
-            background: #342517;
+            background: #000000;
             color: #fff;
+            transition: .4s;
         }
 
         /*SPLASH SLUT*/
@@ -184,14 +260,11 @@
         /*EFFEKT SLUT*/
 
 
-
-        /* relevant styles */
-
         /*HOVER EFFECT PÅ BILLEDE*/
         .img__description_layer {
             position: absolute;
-            top: 0;
-            bottom: 0;
+            top: 32px;
+            bottom: 7px;
             left: 0;
             right: 0;
             background: rgba(51, 51, 51, 0.6);
@@ -208,3 +281,5 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /*HOVER EFFECT PÅ BILLEDE SLUT*/

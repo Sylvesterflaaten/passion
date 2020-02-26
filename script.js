@@ -12,7 +12,6 @@
             filterKnap.forEach(knap => {
                 knap.addEventListener("click", filtrering);
             });
-
         }
 
         async function hentData() {
@@ -21,6 +20,7 @@
             console.log(produkter);
             visProdukter();
         }
+
 
         function filtrering() {
             console.log("filtrering");
@@ -45,7 +45,7 @@
                     klon.querySelector("h2").textContent = produkt.gsx$navn.$t;
                     klon.querySelector("img").src = `imgs/${produkt.gsx$billede.$t}.jpg`;
                     klon.querySelector(".kort").textContent += produkt.gsx$kort.$t;
-/*                    klon.querySelector(".genre").textContent += `${produkt.gsx$genre.$t}`;*/
+                    /*                    klon.querySelector(".genre").textContent += `${produkt.gsx$genre.$t}`;*/
 
                     klon.querySelector(".produkt").addEventListener("click", () => {
                         location.href = `detalje.html?id=${produkt.gsx$id.$t}`;
