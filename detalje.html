@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BISTRO BABUSHKA</title>
+    <title>TV-SHOWS</title>
     <link href="https://fonts.googleapis.com/css?family=Krona+One|Open+Sans&display=swap" rel="stylesheet">
 
     <style>
+        /*GENERELT*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
+            line-height: 1.6;
         }
+
 
         h1 {
             font-family: 'Krona One';
@@ -29,9 +38,7 @@
             font-size: 1.2rem;
         }
 
-        img {
-            max-width: 100%;
-        }
+        /*GENERELT SLUT*/
 
         #detalje img {
             justify-content: center;
@@ -65,41 +72,32 @@
 
         nav .left-right a {
             margin: 0 50px;
-
             color: #848484;
             font-size: 20px;
             text-decoration: none;
-            text-align: center;
             padding: 5px 0;
             display: block;
             position: relative;
             transition: all 0.3s ease;
         }
 
-        .logo img:hover {
-            filter: invert(100%)
-        }
-
         .logo img {
-            width: 80px;
+            width: 100%;
             height: 90px;
-            filter: invert(90%)
+            filter: invert(30%);
         }
 
-        ul {
-            border-radius: 4px;
-            overflow: hidden;
+        .logo img:hover {
+            filter: invert(0);
         }
 
-        li {
-            list-style: none;
-        }
 
         /*HOVER EFFECT PÅ MENU*/
-        .left-right li:hover a::before {
+        .left-right:hover a::before {
             right: 0;
             left: 0;
         }
+
 
         .left-right a:hover {
             color: #e74c3c;
@@ -121,16 +119,11 @@
             left: 0;
         }
 
-        #detalje #luk {
-            position: absolute;
-            top: 20%;
-            left: 0;
-            font-size: 2rem;
-            cursor: pointer;
-            margin: 1rem;
-            font-family: 'Open Sans';
-        }
+        /*HEADER NAV MENU SLUT*/
 
+
+
+        /*INDSTILLINGER FOR INDHOLD FRA JSON*/
         #detalje .produktet {
             max-width: 1000px;
             background-color: #fff;
@@ -142,72 +135,69 @@
             padding: 1rem;
             margin: 5vh auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             grid-column-gap: 15px;
             grid-row-gap: 15px;
         }
 
+
+        /*BUTTON INDSTILLINGER*/
         button:focus {
             outline: 0;
         }
 
         button {
-            background-color: #ffffff;
-            border-radius: 8px;
-            border: 1px solid #959595;
-            display: inline-block;
-            cursor: pointer;
-            color: #000000;
-            font-size: 15px;
+            background-color: #e74c3c;
+            color: white;
+            font-size: 16px;
+            padding: 5px;
+            border: none;
+            font-family: 'Open Sans';
             font-weight: bold;
-            padding: 6px 24px;
-            text-decoration: none;
-            text-shadow: 0px 1px 0px #ffffff;
         }
 
+
         button:hover {
-            background-color: white;
-            color: #333;
-            border: 2px #333 solid;
+            background-color: #be4134;
+            color: #ffffff;
             transition: .1s;
         }
 
+        /*INDSTILLINGER FOR DEN LANGE TEKST FRA JSON*/
         .lang {
             width: 100%;
             border-bottom: 3px solid black;
             padding-bottom: 25px;
         }
 
-        @media screen and (max-width: 992px) {
-            #detalje #luk {
-                font-size: 0.7rem;
-            }
-
     </style>
 </head>
 
 <body>
     <header>
+        <!--NAV MENU MED LOGO I MIDTEN-->
         <nav>
             <div class="left-right">
-                <ul>
-                    <li><a href="serier.html">TV-SHOWS</a></li>
+
+                <a href="serier.html">TV-SHOWS</a>
             </div>
             <div class="logo">
                 <a href="landingpage.html">
-                    <img src="imgs/logo.svg" alt="">
+                    <img src="imgs/logo1.svg" alt="">
                 </a>
             </div>
             <div class="left-right">
-                <li><a href="">NEW</a></li>
+                <a href="new.html">NEW</a>
             </div>
-            </ul>
+
         </nav>
     </header>
+
+
     <section id="detalje" class="skjul">
+        <button id="luk">BACK</button>
         <h1></h1>
         <article class="produktet">
-            <button id="luk">BACK</button>
             <img src="" alt="">
             <div class="produkt-beskrivelse">
                 <p class="lang"></p>
@@ -220,7 +210,10 @@
 
 
     <script>
-        const endpoint = "https://spreadsheets.google.com/feeds/list/1qgHX1DA5a0seGp-zUEolxOHpkMEW9Kmvjbh9SJ8bkc4/od6/public/values?alt=json";
+        /*LINK TIL JSON FILERNE FRA SHEET, MED ALT INFO*/
+        var endpoint = "https://spreadsheets.google.com/feeds/list/1qgHX1DA5a0seGp-zUEolxOHpkMEW9Kmvjbh9SJ8bkc4/od6/public/values?alt=json";
+        var endpointNew = "https://spreadsheets.google.com/feeds/list/1kSlIr4E-OFoTyBJrcttMTmIG9gw4h_I-kOWRu1ujJ4I/od6/public/values?alt=json";
+
         const detalje = document.querySelector("#detalje");
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id");
@@ -228,9 +221,12 @@
         let produkter = [];
         document.addEventListener("DOMContentLoaded", start);
 
+        /*NÅR SIDEN LOADES, LOADES STARTFUNKTIONERNE I DENNE FUNKTION*/
         function start() {
             loadData();
+            loadDataNew();
         }
+        /*FETCHER INFO FRA JSON, SOM INDSÆTTES I TEMPLATEN FRA TV-SHOWS SIDEN*/
         async function loadData() {
             const response = await fetch(endpoint);
             produkter = await response.json();
@@ -239,6 +235,16 @@
             visProdukter();
         }
 
+        /*FETCHER INFO FRA JSON, SOM INDSÆTTES I TEMPLATEN FRA NEW SIDEN*/
+        async function loadDataNew() {
+            const response = await fetch(endpointNew);
+            produkter = await response.json();
+            console.log(produkter);
+
+            visProdukter();
+        }
+
+        /*VISER INFOEN FRA JSON PÅ SIDEN*/
         function visProdukter() {
             produkter.feed.entry.forEach(produkt => {
                 if (produkt.gsx$id.$t == id) {

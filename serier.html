@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Serier</title>
+    <title>TV-SHOWS</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Krona+One|Open+Sans&display=swap" rel="stylesheet">
 
@@ -11,32 +11,48 @@
 
 <body>
     <header>
+        <!--NAV MENU MED LOGO I MIDTEN-->
         <nav>
             <div class="left-right">
-                <ul>
-                    <li><a href="serier.html">TV-SHOWS</a></li>
+
+                <a href="serier.html">TV-SHOWS</a>
             </div>
             <div class="logo">
                 <a href="landingpage.html">
-                    <img src="imgs/logo.svg" alt="">
+                    <img src="imgs/logo1.svg" alt="">
                 </a>
             </div>
             <div class="left-right">
-                <li><a href="">NEW</a></li>
+                <a href="new.html">NEW</a>
             </div>
-            </ul>
+
         </nav>
     </header>
 
+    <!--DROPDOWN BUTTON TIL FILTRERING AF GENRE-->
+    <div class="dropdown">
+        <button class="dropbutton">GENRES</button>
+        <div class="dropdown-content">
+            <div class="filter valgt" data-kategori="alle">ALLE</div>
+            <div class="filter" data-kategori="comedy">COMEDY</div>
+            <div class="filter" data-kategori="drama">DRAMA</div>
+            <div class="filter" data-kategori="animation">ANIMATION</div>
+            <div class="filter" data-kategori="adventure">ADVENTURE</div>
+            <div class="filter" data-kategori="crime">CRIME</div>
+        </div>
+    </div>
 
+
+
+    <!--TEMPLATE FOR INDHOLDET FRA JSON-->
     <section id="container"></section>
     <template>
         <article id="" class="produkt">
             <h2></h2>
-            <div class="img__wrap">
+            <div class="img_wrap">
                 <img class="" src="" />
-                <div class="img__description_layer">
-                    <p class="img__description kort"></p>
+                <div class="img_description_layer">
+                    <p class="img_description kort"></p>
                 </div>
             </div>
 

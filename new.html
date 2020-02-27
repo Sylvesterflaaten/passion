@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NEW - TV-SHOWS</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Krona+One|Open+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <!--NAV MENU MED LOGO I MIDTEN-->
+        <nav>
+            <div class="left-right">
+
+                <a href="serier.html">TV-SHOWS</a>
+            </div>
+            <div class="logo">
+                <a href="landingpage.html">
+                    <img src="imgs/logo1.svg" alt="">
+                </a>
+            </div>
+            <div class="left-right">
+                <a href="new.html">NEW</a>
+            </div>
+
+        </nav>
+    </header>
+
+    <!--DROPDOWN BUTTON TIL FILTRERING AF GENRE-->
+    <div class="dropdown">
+        <button class="dropbutton">GENRES</button>
+        <div class="dropdown-content">
+            <div class="filter valgt" data-kategori="alle">ALLE</div>
+            <div class="filter" data-kategori="comedy">COMEDY</div>
+            <div class="filter" data-kategori="mystery">MYSTERY</div>
+            <div class="filter" data-kategori="adventure">ADVENTURE</div>
+            <div class="filter" data-kategori="horror">HORROR</div>
+        </div>
+    </div>
+
+
+
+    <!--TEMPLATE FOR INDHOLDET FRA JSON-->
+    <section id="container"></section>
+    <template>
+        <article id="" class="produkt">
+            <h2></h2>
+            <div class="img_wrap">
+                <img class="" src="" />
+                <div class="img_description_layer">
+                    <p class="img_description kort"></p>
+                </div>
+            </div>
+
+        </article>
+    </template>
+
+
+
+    <script>
+        /*LINK TIL JSON FILERNE FRA SHEET, MED ALT INFO*/
+        const endpoint = "https://spreadsheets.google.com/feeds/list/1kSlIr4E-OFoTyBJrcttMTmIG9gw4h_I-kOWRu1ujJ4I/od6/public/values?alt=json"
+
+        let produkter = [];
+        let filterKnap = document.querySelectorAll(".filter");
+        let filter = "alle";
+
+        document.addEventListener("DOMContentLoaded", start);
+
+        /*VARIABLER*/
+        function start() {
+            hentData();
+            filterKnap.forEach(knap => {
+                knap.addEventListener("click", filtrering);
+            });
+        }
+
+
+        /*FETCHER INFO FRA JSON, SOM INDSÆTTES I TEMPLATEN*/
+        async function hentData() {
+            const response = await fetch(endpoint);
+            produkter = await response.json();
+            visProdukterNew();
+
+        }
+
+
+        /*FILTRERE SERIERNE PÅ TV-SHOWS MELLEM ALLE GENRES*/
+        function filtrering() {
+            console.log("filtrering");
+            filter = this.dataset.kategori; // sæt variabel "filter" til aktuel værdi
+            document.querySelector(".valgt").classList.remove("valgt"); // fjern klassen valgt fra aktuel knap
+            this.classList.add("valgt") // marker den nyvalgte knap
+            visProdukterNew(); // kald funktionen vis igen med nyt filter
+        }
+
+        /*INDSÆTTER INFOEN FRA JSON PÅ SIDEN*/
+        function visProdukterNew() {
+
+            let container = document.querySelector("#container");
+            let produktTemplate = document.querySelector("template");
+            let article = document.querySelector("article");
+
+            container.innerHTML = "";
+
+            produkter.feed.entry.forEach(produkt => {
+                if (produkt.gsx$kategori.$t == filter || filter == "alle") {
+                    let klon = produktTemplate.cloneNode(true).content;
+                    klon.querySelector("h2").textContent = produkt.gsx$navn.$t;
+                    klon.querySelector("img").src = `imgs/${produkt.gsx$billede.$t}.jpg`;
+                    klon.querySelector(".kort").textContent += produkt.gsx$kort.$t;
+
+                    klon.querySelector(".produkt").addEventListener("click", () => {
+                        location.href = `detalje.html?id=${produkt.gsx$id.$t}`;
+                    });
+                    container.appendChild(klon);
+                }
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>
